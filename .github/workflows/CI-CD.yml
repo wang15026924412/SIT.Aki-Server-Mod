@@ -44,15 +44,12 @@ jobs:
           else
             echo "Build failed!"
           fi
-        if: github.event_name != 'workflow_dispatch'
 
       - name: Compress SITCoop folder
         run: zip -r SITCoop.zip ./SITCoop
-        if: github.event_name == 'workflow_dispatch'
       
       - name: Create release
         uses: softprops/action-gh-release@v1
-        if: github.event_name == 'workflow_dispatch'
         with:
           tag_name: ${{ steps.read_package_json.outputs.version }}
           name: SITCoop-${{ steps.read_package_json.outputs.version }}
